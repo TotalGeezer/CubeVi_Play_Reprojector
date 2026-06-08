@@ -307,6 +307,8 @@ MonoBehaviour:
     f_cam: 0
     tan_alpha_2: 0
     pixel_order: 
+  _splitMat: {fileID: 0}
+  _batchMaterial: {fileID: 2100000, guid: bc8b9704d4ef5844ca5584e7c4c1f256, type: 2}
   TargetTransform: {fileID: 0}
   FocalPlane: 10
   useTartgetFocal: 1
