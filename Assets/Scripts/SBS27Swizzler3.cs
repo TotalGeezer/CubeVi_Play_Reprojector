@@ -74,7 +74,6 @@ public class SBS27Swizzler3 : MonoBehaviour
 	#endregion
 
 	private bool isSBS = true;
-	private bool needsTextureUpdate = true;
 
 	#region Unity Init
 	private void Awake()
@@ -178,7 +177,6 @@ public class SBS27Swizzler3 : MonoBehaviour
 	public void SetSBSRenderTexture(RenderTexture source)
 	{
 		_sbsSource = source;
-		needsTextureUpdate = true;
 	}
 	#endregion
 
@@ -358,14 +356,10 @@ public class SBS27Swizzler3 : MonoBehaviour
 	#region Update Loop
 	private void Update()
 	{
-		if (needsTextureUpdate)
-		{
 			UpdateCameraPositions();
 			SplitSBSInput();
 			UpdateTextureArray();
 			UpdateShader();
-			needsTextureUpdate = false;
-		}
 	}
 	#endregion
 
@@ -407,9 +401,7 @@ public class SBS27Swizzler3 : MonoBehaviour
 		if (_sbsSource == null || _splitMat == null) return;
 
 		RenderTexture.active = cameraRenderTextures[0];
-		GL.Clear(true, true, Color.black);
 		RenderTexture.active = cameraRenderTextures[1];
-		GL.Clear(true, true, Color.black);
 
 		_splitMat.SetFloat("_Half", 0);
 		Graphics.Blit(_sbsSource, cameraRenderTextures[0], _splitMat);
@@ -450,6 +442,12 @@ public class SBS27Swizzler3 : MonoBehaviour
 		useEyeTracking = !useEyeTracking;
 		if (useEyeTracking && _eye != null && !_eye.isRunning)
 			_eye.StartTracking();
+	}
+
+	public void SetX0Offset(Single value)
+	{
+		_device.x0 = value;
+
 	}
 	#endregion
 
